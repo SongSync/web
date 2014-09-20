@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140920055634) do
+ActiveRecord::Schema.define(version: 20140920060915) do
 
   create_table "playlists", force: true do |t|
     t.integer  "user_id"
@@ -27,6 +27,10 @@ ActiveRecord::Schema.define(version: 20140920055634) do
     t.integer  "playlist_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
   end
 
   add_index "songs", ["playlist_id"], name: "index_songs_on_playlist_id"
