@@ -17,6 +17,7 @@
 //= require angular-route
 //= require ui-bootstrap
 //= require bootstrap-sprockets
+//= require flat-ui
 //= require restangular
 //= require angapp
 //= require controllers
