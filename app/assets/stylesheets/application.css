@@ -23,7 +23,44 @@ li {
     padding:5px;
 }
 
-li :hover { 
-    /* This rule is only in effect when mouse is hovering */
-    background-color: #567499;
+nav ul li a:hover { 
+  background: #617F8A; 
+}
+
+nav {
+  background-color:#2C5463;
+  height:50px;
+}
+
+nav ul {
+  font-family: Arial, Verdana;
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+nav ul li {
+  display: block;
+  position: relative;
+  float: left;
+ 
+}
+ 
+nav li ul { 
+  display: none; 
+}
+ 
+nav ul li a {
+  display: block;
+  text-decoration: none;
+  padding: 7px 15px 3px 15px;
+  background: #2C5463;
+  color: #ffffff;  
+  margin-left: 1px;
+  white-space: nowrap;
+  height:30px; /* Width and height of top-level nav items */
+  width:140px;
+  text-align:center;
+ 
 }
