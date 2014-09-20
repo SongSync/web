@@ -14,12 +14,11 @@
  *= require_self
  *= require bootstrap
  */
-
-
+/*
 li {
     display: inline;
     list-style-type: none;
-    background-color:#425899;
+    background-color:#2C5463;
     color:white;
     padding:5px;
 }
@@ -29,7 +28,7 @@ nav ul li a:hover {
 }
 
 nav {
-  background-color:#2C5463;
+  background-color:#2C5463; 
   height:50px;
 }
 
@@ -60,8 +59,9 @@ nav ul li a {
   color: #ffffff;  
   margin-left: 1px;
   white-space: nowrap;
-  height:30px; /* Width and height of top-level nav items */
+  height:30px; /* Width and height of top-level nav items 
   width:140px;
   text-align:center;
  
 }
+*/
