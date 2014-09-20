@@ -1,6 +1,7 @@
 class Song < ActiveRecord::Base
-  belongs_to :playlist
+  belongs_to :user
   has_attached_file :file
+  has_and_belongs_to_many :playlists
 
   def serializable_hash(options={})
     super({

@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
   before_create { self.api_key = SecureRandom.urlsafe_base64(32) }
 
   has_many :playlists
+  has_many :songs
+
   def serializable_hash(options={})
     super({
       only: [:id, :name, :api_key],

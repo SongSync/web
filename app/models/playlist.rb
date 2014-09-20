@@ -1,6 +1,6 @@
 class Playlist < ActiveRecord::Base
   belongs_to :user
-  has_many :songs
+  has_and_belongs_to_many :songs
 
   def serializable_hash(options={})
     super({
