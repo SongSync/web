@@ -43,7 +43,8 @@ app.factory 'AuthFactory', ['Restangular', '$window', '$q', (Restangular, $windo
       this._isLoggedIn ||= $window.sessionStorage.getItem 'current_user'
     currentUser: () ->
       this.current_user ||= angular.fromJson($window.sessionStorage.getItem('current_user'))
-      Restangular.setDefaultParams({api_key: this.current_user.api_key})
+      if this.current_user
+        Restangular.setDefaultRequestParams({api_key: this.current_user.api_key})
   }
 ]
 
