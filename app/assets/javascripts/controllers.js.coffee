@@ -39,6 +39,17 @@ app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', '$sce', '$ro
       $scope.current_playlist = $scope.all_songs
     else
       $scope.current_playlist = playlist
+  $scope.removePlaylist = (playlist) ->
+    ApiFactory.deletePlaylist(playlist.id).then (val) ->
+        if $scope.current_playlist.id == playlist.id
+          $scope.current_playlist = $scope.all_songs
+        $scope.playlists = _.without($scope.playlists, playlist)
+  $scope.createPlaylist = (playlist) ->
+    ApiFactory.createPlaylist(playlist).then (val) ->
+      if val.errors.length == 0
+        $scope.playlists.push val
+      else
+        alert val.errors.join(', ')
 
   $scope.playSong = (index) ->
     $scope.current_song = $scope.current_playlist.songs[index]
@@ -47,4 +58,15 @@ app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', '$sce', '$ro
     window.setTimeout () ->
       $rootScope.$broadcast('audio.play')
     , 0
+
+  $scope.openAddToPlaylistModal = () ->
+
+  $scope.rename = () ->
+  $scope.remove = (song) ->
+    song_id = song.id
+    if $scope.current_playlist.id == 'all'
+      ApiFactory.deleteSong(song_id)
+      _.each $scope.playlists, (playlist) ->
+        playlist.songs = _.reject playlist.songs, (song) -> song.id == song_id
+      $scope.current_playlist.songs = _.without($scope.current_playlist.songs, song)
 ]

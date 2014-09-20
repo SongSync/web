@@ -6,6 +6,8 @@ app.factory 'ApiFactory', ['Restangular', (Restangular) ->
       Restangular.all('playlists').getList()
     getPlaylist: (id) ->
       Restangular.one('playlists', id).get()
+    deletePlaylist: (id) ->
+      Restangular.one('playlists', id).customDELETE()
     getSongs: () ->
       Restangular.all('songs').getList()
     getSong: (id) ->
@@ -16,6 +18,8 @@ app.factory 'ApiFactory', ['Restangular', (Restangular) ->
         file: song.file.src
       }
       Restangular.all('songs').customPOST({song: song})
+    deleteSong: (song_id) ->
+      Restangular.one('songs', song_id).customDELETE()
   }
 ]
 app.factory 'AuthFactory', ['Restangular', '$window', '$q', (Restangular, $window, $q) ->

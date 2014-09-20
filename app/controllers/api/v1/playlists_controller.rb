@@ -8,4 +8,8 @@ class Api::V1::PlaylistsController < Api::V1::ApiController
   def show
     render json: Playlist.find(params[:id])
   end
+
+  def destroy
+    render json: @playlist.destroy
+  end
 end

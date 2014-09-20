@@ -11,15 +11,17 @@
           a href='javascript:void(0)' ng-click='selectPlaylist()' ng-class="{'active': current_playlist.id == 'all'}"
             h5.text-center All Songs
         .row ng-repeat='playlist in playlists'
-          a href='javascript:void(0)' ng-click='selectPlaylist(playlist)' ng-class="{'active': current_playlist.id == playlist.id}"
+          .col-xs-12
             h5.text-center
-              | {{playlist.name}}
-        form ng-submit='addPlaylist(newPlaylist)'
+              a href='javascript:void(0)' ng-click='selectPlaylist(playlist)' ng-class="{'active': current_playlist.id == playlist.id}"
+                | {{playlist.name}} 
+              a.pull-right.btn.btn-danger href='javascript:void(0)' ng-click='removePlaylist(playlist)' x
+        form ng-submit='createPlaylist(newPlaylist)'
           .row
             .col-xs-8.col-xs-offset-1
               input.form-control type='text' ng-model='newPlaylist.name' placeholder='+ New Playlist...'
             .col-xs-3
-              input.btn.btn-primary type='submit' value='Create'
+              input.pull-right.btn.btn-primary type='submit' value='Create'
         .margin-top-25px
           br
       .col-lg-8#list-view
@@ -36,4 +38,17 @@
             span.fui-play
             |   {{song.name}}
           .col-xs-2
-            span.fui-arrow-right
+            .btn-group
+              button.btn.btn-primary.dropdown-toggle data-toggle='dropdown'
+                | Options
+                span.caret
+              ul.dropdown-menu
+                li
+                  a href='javascript:void(0)' ng-click='playSong($index)' Play
+                li
+                  a href='javascript:void(0)' ng-click='openAddToPlaylistModal(song, playlists)' Add to Playlist
+                li
+                  a href='javascript:void(0)' ng-click='rename(song)' Rename
+                li.divider
+                li
+                  a href='javascript:void(0)' ng-click='remove(song)' Remove
