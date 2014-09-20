@@ -11,7 +11,7 @@ window.updateActive = (path) ->
 
 app.config(['$routeProvider', ($routeProvider) ->
   $routeProvider.when '/login', {templateUrl: '/partial/login', controller: 'LoginCtrl' }
-  $routeProvider.when '/player', {templateUrl: '/partial/profile', controller: 'PlayerCtrl' }
+  $routeProvider.when '/player', {templateUrl: '/partial/player', controller: 'PlayerCtrl' }
   $routeProvider.otherwise {redirectTo: '/login'}
 ]).
 config(['RestangularProvider', '$httpProvider', (RestangularProvider, $httpProvider) ->

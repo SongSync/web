@@ -26,7 +26,7 @@ app.factory 'AuthFactory', ['Restangular', '$window', '$q', (Restangular, $windo
         if val.success
           this._isLoggedIn = true
           this.current_user = val.current_user
-          Restangular.setDefaultParams({api_key: this.current_user.api_key})
+          Restangular.setDefaultRequestParams({api_key: this.current_user.api_key})
           $window.sessionStorage.setItem 'current_user', JSON.stringify(this.current_user)
           deferred.resolve(this.current_user)
         else

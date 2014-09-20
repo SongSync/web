@@ -1,7 +1,9 @@
 app = angular.module('songSync.controllers', ['restangular'])
 
-app.controller 'LoginCtrl',['$scope', 'AuthFactory', ($scope, AuthFactory)->
+app.controller 'LoginCtrl',['$scope', 'AuthFactory', '$location', ($scope, AuthFactory, $location)->
   $scope.login = () ->
-    AuthFactory.login($scope.credentials).then undefined, (obj) ->
-      $scope.credentials.errors = obj
+    AuthFactory.login($scope.credentials).then ()->
+      $location.path('/player')
+    , (errors) ->
+      $scope.credentials.errors = errors
 ]

@@ -9,7 +9,7 @@ class Api::V1::SessionsController < DeviseController
 
   def new
     if current_user
-      render json: { success: true, current_user: current_user, current_organization: current_user.organizations.first }
+      render json: { success: true, current_user: current_user }
     else
       render json: { success: false }
     end
@@ -21,7 +21,7 @@ class Api::V1::SessionsController < DeviseController
 
     if resource.valid_password?(params[:user_login][:password])
       sign_in("user", resource)
-      render :json=> { :success=>true, :api_key=>resource.api_key, :current_user => resource, :current_organization => resource.organizations.first }
+      render :json=> { :success=>true, :current_user => resource }
     else
       invalid_login_attempt
     end

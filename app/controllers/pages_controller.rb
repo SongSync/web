@@ -3,6 +3,6 @@ class PagesController < ApplicationController
   end
 
   def partial
-    render params[:name], layout: false
+    render '/pages/partial/' + params[:name], layout: false
   end
 end

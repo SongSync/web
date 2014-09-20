@@ -4,10 +4,12 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  before_create { self.api_key = SecureRandom.urlsafe_base64(32) }
+
   has_many :playlists
   def serializable_hash(options={})
     super({
-      only: [:id, :name],
+      only: [:id, :name, :api_key],
       include: [:playlists]
     }.merge(options))
   end
