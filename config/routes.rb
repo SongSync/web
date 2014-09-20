@@ -11,16 +11,11 @@ Rails.application.routes.draw do
     end
   end
 
-  # Web App Controllers
-  resources :pages, only: [] do
-    collection do
-      get :home
-      get :player
-    end
-  end
+  # Manual pages
+  match '/play', to: 'pages#player', via: :get
 
-  # Manual matches
-  match '/auth/:provider/callback', to: 'sessions#create', via: 'get'
+  # API matches
+  match '/auth/:provider/callback', to: 'sessions#create', via: :get
   match '/partial/(*name)', to: 'pages#partial', via: :get
 
   root 'pages#home'
