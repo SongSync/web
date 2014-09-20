@@ -22,3 +22,8 @@ li {
     color:white;
     padding:5px;
 }
+
+li :hover { 
+    /* This rule is only in effect when mouse is hovering */
+    background-color: #567499;
+}
