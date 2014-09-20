@@ -8,6 +8,8 @@ app.factory 'ApiFactory', ['Restangular', (Restangular) ->
       Restangular.one('playlists', id).get()
     deletePlaylist: (id) ->
       Restangular.one('playlists', id).customDELETE()
+    createPlaylist: (playlist) ->
+      Restangular.all('playlists').customPOST({playlist: playlist})
     getSongs: () ->
       Restangular.all('songs').getList()
     getSong: (id) ->
@@ -49,6 +51,7 @@ app.factory 'AuthFactory', ['Restangular', '$window', '$q', (Restangular, $windo
       this.current_user ||= angular.fromJson($window.sessionStorage.getItem('current_user'))
       if this.current_user
         Restangular.setDefaultRequestParams({api_key: this.current_user.api_key})
+      this.current_user
   }
 ]
 

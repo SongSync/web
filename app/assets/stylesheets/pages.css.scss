@@ -3,6 +3,7 @@
 $clouds: #ECF0F1;
 $wet-asphalt: #34495E;
 $midnight-blue: #2C3E50;
+$asbestos: #7F8C8D;
 
 body {
   margin-top: 53px !important;
@@ -14,6 +15,13 @@ body {
   a.active {
     color: $midnight-blue;
   }
+  height: 100%;
+  overflow: scroll;
+}
+
+#list-view {
+  height: 100%;
+  overflow: scroll;
 }
 
 #home-page {
@@ -22,7 +30,6 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;
-
   text-align: center;
 }
 
@@ -37,6 +44,8 @@ body {
   border-style: solid;
   border-radius: 20px;
   overflow: hidden;
+  height: 90%;
+  margin-bottom: 50px;
 }
 
 footer {
@@ -103,4 +112,21 @@ div.oauth-badges {
   button#btn-facebook {
     margin-left: $separation-px / 2;
   }
+}
+
+.margin-top-25px {
+  margin-top: 25px;
+}
+
+.drop-file-box {
+  background: #F8F8F8;
+  border: 5px dashed #DDD;
+  width: 200px;
+  text-align: center;
+  padding-top: 35px;
+  padding-bottom: 35px;
+}
+
+.selected {
+  background-color: $asbestos;
 }

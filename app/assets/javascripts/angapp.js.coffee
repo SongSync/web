@@ -1,5 +1,5 @@
 app = angular.module('songSync', ['songSync.controllers', 'songSync.directives',
-  'songSync.services', 'restangular', 'ui.bootstrap', 'ngRoute'])
+  'songSync.services', 'restangular', 'ui.bootstrap', 'ngRoute', 'angularFileUpload'])
 
 window.fixDisplay = () ->
   document.getElementById('player-body').style.webkitTransform = 'scale(1)';

@@ -5,11 +5,24 @@ class Api::V1::PlaylistsController < Api::V1::ApiController
     render json: @user.playlists
   end
 
+  def create
+    render json: @user.playlists.create(playlist_params)
+  end
+
   def show
     render json: Playlist.find(params[:id])
   end
 
+  def update
+    render json: @playlist.update_attributes(playlist_params)
+  end
+
   def destroy
     render json: @playlist.destroy
+  end
+
+private
+  def playlist_params
+    params.require(:playlist).permit(:name)
   end
 end

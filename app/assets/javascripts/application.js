@@ -15,6 +15,7 @@
 //= require underscore.min
 //= require angular
 //= require angular-route
+//= require angular-file-upload
 //= require ui-bootstrap
 //= require bootstrap-sprockets
 //= require flat-ui
@@ -23,3 +24,4 @@
 //= require controllers
 //= require services
 //= require directives
+//= require modal_controllers

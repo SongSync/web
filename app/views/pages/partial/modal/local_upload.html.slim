@@ -1,0 +1,9 @@
+.modal-header
+  h3.modal-title Local File Upload
+.modal-body
+  h4 Select Files
+  input type='file' ng-file-select='onFileSelect($files)' multiple='true'
+   .drop-file-box ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="" Drop files here...
+.modal-footer
+  .pull-right.col-lg-12
+    button.btn.btn-danger ng-click='close()' Cancel
