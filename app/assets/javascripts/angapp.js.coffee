@@ -10,8 +10,8 @@ window.updateActive = (path) ->
       $(this).removeClass 'active'
 
 app.config(['$routeProvider', ($routeProvider) ->
-  $routeProvider.when '/login', {templateUrl: '/angular/partial?name=dashboard.html', controller: 'LoginCtrl' }
-  $routeProvider.when '/player', {templateUrl: '/angular/partial?name=profile.html', controller: 'PlayerCtrl' }
+  $routeProvider.when '/login', {templateUrl: '/partial/login', controller: 'LoginCtrl' }
+  $routeProvider.when '/player', {templateUrl: '/partial/profile', controller: 'PlayerCtrl' }
   $routeProvider.otherwise {redirectTo: '/login'}
 ]).
 config(['RestangularProvider', '$httpProvider', (RestangularProvider, $httpProvider) ->
@@ -19,17 +19,10 @@ config(['RestangularProvider', '$httpProvider', (RestangularProvider, $httpProvi
 ]).
 run(['$rootScope', '$location', 'AuthFactory'
   ($rootScope, $location, AuthFactory) ->
-    routesThatDontRequireAuth = ['/login'];
-
-    routeClean = (route) ->
-      return _.find(routesThatDontRequireAuth,
-        (noAuthRoute) ->
-          return _.str.startsWith(route, noAuthRoute);
-        )
 
     $rootScope.$on '$routeChangeStart',
       (event, next, current) ->
-        if (!routeClean($location.url()) && !AuthFactory.isLoggedIn())
+        if ($location.path() != '/login' && !AuthFactory.isLoggedIn())
           AuthFactory.friendlyRedirect = $location.path()
           $location.path('/login');
         window.updateActive $location.path()

@@ -18,4 +18,6 @@ Rails.application.routes.draw do
       get :player
     end
   end
+
+  match '/partial/(*name)', to: 'pages#partial', via: :get
 end
