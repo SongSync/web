@@ -6,10 +6,14 @@ $midnight-blue: #2C3E50;
 
 body {
   margin-top: 53px !important;
+  height: 100%;
 }
 
 #playlists-sidebar {
   background-color: $clouds;
+  a.active {
+    color: $midnight-blue;
+  }
 }
 
 #home-page {
@@ -30,6 +34,33 @@ body {
   border-style: solid;
   border-radius: 20px;
   overflow: hidden;
+}
+
+footer {
+  padding: 10px;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  h4, p {
+    color: $midnight-blue;
+  }
+}
+
+audio-player .paused .play-text,
+audio-player .pause-text {
+    display:inline-block;
+}
+audio-player .play-text,
+audio-player .paused .pause-text {
+    display:none;
+}
+audio-player * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
 .navbar-default {

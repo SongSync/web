@@ -5,7 +5,7 @@ class Playlist < ActiveRecord::Base
   def serializable_hash(options={})
     super({
       only: [:id, :name],
-      methods: [:song_ids]
+      include: [:songs]
     }.merge(options))
   end
 end

@@ -1,14 +1,28 @@
 .padding-top-25px
+  .text-center
+    audio-player src="current_song.src"
+.padding-top-25px
   .container#player-body
     .row
-      .col-lg-2#playlists-sidebar
+      .col-lg-4#playlists-sidebar
         h3.text-center Playlists
         hr
-        div ng-repeat='playlist in playlists'
-          a href='javascript:void(0)' ng-click='selectPlaylist(playlist)'
+        .row
+          a href='javascript:void(0)' ng-click='selectPlaylist()' ng-class="{'active': current_playlist.id == 'all'}"
+            h5.text-center All Songs
+        .row ng-repeat='playlist in playlists'
+          a href='javascript:void(0)' ng-click='selectPlaylist(playlist)' ng-class="{'active': current_playlist.id == playlist.id}"
             h5.text-center
               | {{playlist.name}}
-      .col-lg-10#list-view
+        form ng-submit='addPlaylist(newPlaylist)'
+          .row
+            .col-xs-8.col-xs-offset-1
+              input.form-control type='text' ng-model='newPlaylist.name' placeholder='+ New Playlist...'
+            .col-xs-3
+              input.btn.btn-primary type='submit' value='Create'
+        .margin-top-25px
+          br
+      .col-lg-8#list-view
         h3
           span ng-show='current_playlist' &nbsp;{{current_playlist.name}}
           span ng-show='!current_playlist' Select a Playlist...
@@ -16,6 +30,10 @@
             span.fui-plus
             |  Upload
         hr
-        .row ng-repeat='song in current_playlist'
-          .col-xs-1
-            | {{$index}}
+        .row ng-repeat='song in current_playlist.songs'
+          .col-xs-10 ng-click='playSong($index)'
+            | {{$index+1}}.  
+            span.fui-play
+            |   {{song.name}}
+          .col-xs-2
+            span.fui-arrow-right

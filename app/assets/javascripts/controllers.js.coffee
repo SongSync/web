@@ -22,20 +22,29 @@ app.controller 'NavCtrl',['$scope', 'AuthFactory', '$location', ($scope, AuthFac
 
 ]
 
-app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', ($scope, AuthFactory, ApiFactory)->
+app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', '$sce', '$rootScope', ($scope, AuthFactory, ApiFactory, $sce, $rootScope)->
   AuthFactory.currentUser()
+  $scope.all_songs = {name: 'All Songs', id: 'all'}
+  $scope.current_playlist = $scope.all_songs
   ApiFactory.getPlaylists().then (playlists) ->
     $scope.playlists = playlists
     window.fixDisplay()
 
   ApiFactory.getSongs().then (songs) ->
-    $scope.songs = songs
+    $scope.all_songs.songs = songs
     window.fixDisplay()
 
   $scope.selectPlaylist = (playlist) ->
     if !playlist
-      $scope.current_playlist = {name: 'All', songs: $scope.songs}
+      $scope.current_playlist = $scope.all_songs
     else
       $scope.current_playlist = playlist
 
+  $scope.playSong = (index) ->
+    $scope.current_song = $scope.current_playlist.songs[index]
+    $scope.current_song.src = $sce.trustAsResourceUrl($scope.current_song.file_url)
+    $rootScope.$broadcast('audio.set', $scope.current_song.src, $scope.current_song, index + 1, $scope.current_playlist.songs.length)
+    window.setTimeout () ->
+      $rootScope.$broadcast('audio.play')
+    , 0
 ]

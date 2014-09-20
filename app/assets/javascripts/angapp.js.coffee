@@ -1,4 +1,4 @@
-app = angular.module('songSync', ['songSync.controllers',
+app = angular.module('songSync', ['songSync.controllers', 'songSync.directives',
   'songSync.services', 'restangular', 'ui.bootstrap', 'ngRoute'])
 
 window.fixDisplay = () ->

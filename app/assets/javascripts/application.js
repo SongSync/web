@@ -22,3 +22,4 @@
 //= require angapp
 //= require controllers
 //= require services
+//= require directives
