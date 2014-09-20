@@ -80,9 +80,14 @@ h1.header {
   margin-top: 0px;
   padding-top: 180px;
   font-family: 'Roboto', sans-serif;
+  /*text-shadow: -4px 0 black;*/
   color: #fff;
 }
 
+#logo{
+	margin-top: 0px;
+	padding-top: 110px;
+}
 div.oauth-badges {
   $separation-px: 40px;
   padding-top: 75px;
