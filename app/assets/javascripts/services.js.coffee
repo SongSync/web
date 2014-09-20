@@ -22,6 +22,16 @@ app.factory 'ApiFactory', ['Restangular', (Restangular) ->
       Restangular.all('songs').customPOST({song: song})
     deleteSong: (song_id) ->
       Restangular.one('songs', song_id).customDELETE()
+    updatePlayback: (current_song_id, current_playlist_id, current_timestamp)->
+      Restangular.all('playback').customPOST(
+        {
+          current_song_id: current_song_id
+          current_playlist_id: current_playlist_id
+          current_timestamp: current_timestamp
+        }
+      )
+    getPlayback: () ->
+      Restangular.one('playback').get()
   }
 ]
 app.factory 'AuthFactory', ['Restangular', '$window', '$q', (Restangular, $window, $q) ->

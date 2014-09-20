@@ -8,7 +8,7 @@
         h3.text-center Playlists
         hr
         .row
-          a.col-lg-11.col-xs-offset-1 href='javascript:void(0)' ng-click='selectPlaylist()' ng-class="{'active': current_playlist.id == 'all'}"
+          a.col-lg-11.col-xs-offset-1 href='javascript:void(0)' ng-click='selectPlaylist()' ng-class="{'active': current_playlist.id == all_songs.id}"
             h5 All Songs
         .row ng-repeat='playlist in playlists'
           .col-xs-12
@@ -51,7 +51,7 @@
         .row ng-repeat='song in current_playlist.songs' style='padding: 2px;' ng-class="{'selected': song.selected}"
           .col-xs-10 ng-click='clickSong(song)'
             | {{$index+1}}.  
-            span.fui-play
+            span.fui-play ng-click='playSong($index)'
             |   {{song.name}}
           .col-xs-2
             .btn-group

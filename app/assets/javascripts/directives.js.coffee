@@ -26,11 +26,16 @@ app.directive('audioPlayer', ($rootScope) ->
       $scope.audio.addEventListener 'pause', ()-> $rootScope.$broadcast('audio.pause', this)
       $scope.audio.addEventListener 'timeupdate', ()-> $rootScope.$broadcast('audio.time', this)
       $scope.audio.addEventListener 'ended', ()-> $rootScope.$broadcast('audio.ended', this); $scope.next()
+      $scope.audio.addEventListener 'loadedmetadata', () ->
+        if $scope.currentTime
+          $scope.audio.currentTime = $scope.currentTime
+          $scope.currentTime = undefined
 
       # set track & play it
-      $rootScope.$on 'audio.set', (r, file, info, currentNum, totalNum) ->
+      $rootScope.$on 'audio.set', (r, file, info, currentNum, totalNum, start_time) ->
           playing = !$scope.audio.paused
           $scope.audio.src = file
+          $scope.currentTime = start_time
           if playing
             a =  $scope.audio.play()
           else
@@ -40,6 +45,9 @@ app.directive('audioPlayer', ($rootScope) ->
           $scope.totalNum = totalNum
       $rootScope.$on 'audio.play', () ->
         a = $scope.audio.play()
+      $rootScope.$on 'audio.settime', (r, time) ->
+        $scope.currentTime = time
+        console.log("Set time:", time)
 
       # update display of things - makes time-scrub work
       setInterval ()->

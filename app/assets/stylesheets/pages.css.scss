@@ -16,12 +16,14 @@ body {
     color: $midnight-blue;
   }
   height: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #list-view {
   height: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
 #home-page {

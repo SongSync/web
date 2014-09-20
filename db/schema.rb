@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140920080252) do
+ActiveRecord::Schema.define(version: 20140920231306) do
 
   create_table "playlists", force: true do |t|
     t.integer  "user_id"
@@ -55,6 +55,9 @@ ActiveRecord::Schema.define(version: 20140920080252) do
     t.string   "api_key"
     t.string   "provider"
     t.string   "uid"
+    t.integer  "current_song_id"
+    t.integer  "current_playlist_id"
+    t.float    "current_timestamp"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

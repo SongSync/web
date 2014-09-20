@@ -22,19 +22,46 @@ app.controller 'NavCtrl',['$scope', 'AuthFactory', '$location', ($scope, AuthFac
 
 ]
 
-app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', '$sce', '$rootScope', '$modal', ($scope, AuthFactory, ApiFactory, $sce, $rootScope, $modal)->
+app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', '$sce', '$rootScope', '$modal', '$q', ($scope, AuthFactory, ApiFactory, $sce, $rootScope, $modal, $q)->
   AuthFactory.currentUser()
-  $scope.all_songs = {name: 'All Songs', id: 'all'}
+  $scope.all_songs = {name: 'All Songs', id: '-1'}
+  $scope.playing = false
   $scope.current_playlist = $scope.all_songs
   $scope.last_clicked_song = {id: -1}
-  $scope.$on 'audio.pause'
-  ApiFactory.getPlaylists().then (playlists) ->
+  $scope.$on 'audio.time', (r, data) ->
+    $scope.currentTime = data.currentTime
+  $scope.$on 'audio.play', () -> $scope.playing = true
+  $scope.$on 'audio.pause', () -> $scope.playing = false
+  window.setInterval( () ->
+    ApiFactory.updatePlayback($scope.current_song.id, $scope.current_playlist.id, $scope.currentTime) if $scope.playing
+  , 5000)
+  pp = ApiFactory.getPlayback().then (playback) ->
+    $scope.playback = playback
+  plp = ApiFactory.getPlaylists().then (playlists) ->
     $scope.playlists = playlists
     window.fixDisplay()
 
-  ApiFactory.getSongs().then (songs) ->
+  sp = ApiFactory.getSongs().then (songs) ->
     $scope.all_songs.songs = songs
     window.fixDisplay()
+
+  $q.all([pp, plp, sp]).then () ->
+    playback = $scope.playback || {}
+    if playback.current_playlist_id
+      if playback.current_playlist_id != -1
+        $scope.current_playlist = _.find $scope.playlists, (p) -> p.id == playback.current_playlist_id
+      if playback.current_song_id
+        $scope.current_song = _.find $scope.current_playlist.songs, (s)-> s.id == playback.current_song_id
+        $scope.current_song.selected = true
+        $scope.last_clicked_song = $scope.current_song
+        if playback.current_timestamp
+          $scope.currentTime = playback.current_timestamp
+        song = $scope.current_song
+        playlist = $scope.current_playlist
+        $rootScope.$broadcast 'audio.set', $sce.trustAsResourceUrl(song.file_url), song, _.indexOf(playlist.songs, song)+1, playlist.songs.length, $scope.currentTime
+        window.setTimeout () ->
+          $rootScope.$broadcast 'audio.play'
+        , 2000
 
   $scope.selectPlaylist = (playlist) ->
     if !playlist
@@ -55,7 +82,6 @@ app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', '$sce', '$ro
         alert val.errors.join(', ')
 
   $scope.clickSong = (song) ->
-    console.log "Last: ", $scope.last_clicked_song, "Current: ", song
     if $scope.last_clicked_song.id == song.id
       $scope.playSong(_.indexOf($scope.current_playlist.songs, song))
     else

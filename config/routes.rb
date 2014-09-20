@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       resources :songs
       resources :playlists
       resources :users
+      resources :playback
     end
   end
 
