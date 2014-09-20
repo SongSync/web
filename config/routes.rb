@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     end
   end
 
+  match '/auth/:provider/callback', to: 'sessions#create', via: 'get'
+
   devise_for :users
   root 'pages#home'
 end
