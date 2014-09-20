@@ -130,3 +130,42 @@ div.oauth-badges {
 .selected {
   background-color: $asbestos;
 }
+
+form {
+	display: block;
+	padding-top: 270px;
+	/*background-color: red;*/
+}
+
+.input-group {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+
+
+input.btn.btn-lg.btn-default {
+	margin-top: 30px;
+	color: black;
+	background-color: #9DBDFF;
+}
+
+input.btn.btn-lg.btn-default:hover{
+	background-color: #B9D0FF;
+}
+
+label.control-label.col-lg-4 {
+	font-size: 1.2em;
+	font-family: 'Roboto', sans-serif;
+	color: white;
+}
+
+.col-lg-8 {
+	display: inline-block;
+}
+
+div.loginPage{
+	background-image: url("Background.JPG");
+	background-size: cover;
+	height:100%;
+}
