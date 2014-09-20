@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140920060915) do
+ActiveRecord::Schema.define(version: 20140920065704) do
 
   create_table "playlists", force: true do |t|
     t.integer  "user_id"
@@ -49,6 +49,8 @@ ActiveRecord::Schema.define(version: 20140920060915) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "provider"
+    t.string   "uid"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

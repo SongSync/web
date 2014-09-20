@@ -1,4 +1,5 @@
 source 'https://rubygems.org'
+ruby '2.1.2'
 
 gem 'rails', '4.1.4'
 gem 'sass-rails', '~> 4.0.3'
@@ -15,7 +16,10 @@ gem 'aws-sdk'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
+
+
 gem 'omniauth'
+gem 'omniauth-spotify'
 
 group :development do
   gem 'sqlite3'
