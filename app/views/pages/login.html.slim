@@ -1,1 +1,13 @@
 | Hi
+form.form-horizontal ng-submit='login(credentials)'
+  div errors='credentials.errors'
+  .input-group
+    label.control-label.col-lg-4 Email
+    .col-lg-8
+      input.form-control type='email' ng-model='credentials.email'
+  .input-group
+    label.control-label.col-lg-4 Password
+    .col-lg-8
+      input.form-control type='password' ng-model='credentials.password'
+  .input-group
+    input.btn.btn-lg.btn-default type='submit' value='Login'

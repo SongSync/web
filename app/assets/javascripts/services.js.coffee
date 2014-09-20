@@ -67,3 +67,11 @@ app.directive "fileread", () ->
           alert 'File is too large. Please pick one less than 15MB.'
       )
   }
+
+app.directive 'errors' , ()->
+  restrict: 'A',
+  scope: {
+    errors: '='
+  }
+  template: '<div class="row" ng-show="errors"><div class="col-xs-12"><div class="alert alert-danger">' +
+            '<ul><li ng-repeat="err in errors"> {{err}} </li></ul></div></div></div>'
