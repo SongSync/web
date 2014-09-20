@@ -2,22 +2,28 @@ doctype html
 html
 	head
 		title Songsync|HomePage
-		<link href="/Users/rosexu/SongSync/app/assets/stylesheets" rel="stylesheet" type="text/css" />
+		//<link href="/Users/rosexu/SongSync/vendor/assets/stylesheets/bootstrap.css" rel="stylesheet">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 	body
 		h1 HomePage
-		nav
-			ul
-				li 
-					a href = "#" PlaceHolder 1
-				li 
-					a href = "#" PlaceHolder 2
-				li
-					a href = "#" Placeholder 3
-					
-					ul
-						li Sub1	
-						li Sub2
-						li Sub3
+		nav [class = "navbar navbar-default" role = "navigation"]
+			div [class = "nav-bar header"]
+				button [type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"]
+        			span [class="sr-only"] Toggle navigation
+        			span [class="icon-bar"]
+        			span [class="icon-bar"]
+        			span [class="icon-bar"]
+      			a [class="navbar-brand" href="#"] Brand
+
+      		div [class = "collapse navbar-collapse" id = "bs-example-navbar-collapse-1"]
+      			u1 [class = "nav navbar-nav"]
+      				li 
+      					a href = "#" Link
+      				li 
+      					a href = "#" Link
 				
 
