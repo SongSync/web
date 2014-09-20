@@ -1,10 +1,45 @@
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,900,700,500,400italic,500italic,700italic,900italic,300italic,300,100,100italic);
 
-div#home-page {
+$clouds: #ECF0F1;
+$wet-asphalt: #34495E;
+$midnight-blue: #2C3E50;
+
+body {
+  margin-top: 53px !important;
+}
+
+#playlists-sidebar {
+  background-color: $clouds;
+}
+
+#home-page {
   background-color: #2c3e50;
   height: 100%;
 
   text-align: center;
+}
+
+.padding-top-25px {
+  padding-top: 25px;
+}
+
+#player-body {
+  width: 80%;
+  border: $midnight-blue;
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.navbar-default {
+  background-color: #ECF0F1;
+}
+
+nav {
+  position: absolute;
+  top: 0;
+  width: 100%;
 }
 
 h1.header {
@@ -19,6 +54,10 @@ div.oauth-badges {
   padding-top: 75px;
 
   button#btn-spotify {
+    margin-right: $separation-px / 2;
+  }
+
+  button#btn-login {
     margin-right: $separation-px / 2;
   }
 

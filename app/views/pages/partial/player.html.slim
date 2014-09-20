@@ -1,1 +1,21 @@
-| Test
+.padding-top-25px
+  .container#player-body
+    .row
+      .col-lg-2#playlists-sidebar
+        h3.text-center Playlists
+        hr
+        div ng-repeat='playlist in playlists'
+          a href='javascript:void(0)' ng-click='selectPlaylist(playlist)'
+            h5.text-center
+              | {{playlist.name}}
+      .col-lg-10#list-view
+        h3
+          span ng-show='current_playlist' &nbsp;{{current_playlist.name}}
+          span ng-show='!current_playlist' Select a Playlist...
+          button.btn.btn-lg.btn-primary.pull-right
+            span.fui-plus
+            |  Upload
+        hr
+        .row ng-repeat='song in current_playlist'
+          .col-xs-1
+            | {{$index}}

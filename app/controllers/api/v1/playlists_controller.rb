@@ -1,4 +1,4 @@
-class Api::V1::PlaylistsController < ApiController
+class Api::V1::PlaylistsController < Api::V1::ApiController
   load_and_authorize_resource
 
   def index

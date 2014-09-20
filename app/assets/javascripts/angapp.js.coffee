@@ -1,18 +1,14 @@
 app = angular.module('songSync', ['songSync.controllers',
   'songSync.services', 'restangular', 'ui.bootstrap', 'ngRoute'])
 
-window.updateActive = (path) ->
-  $('.nav > li').each (i, e) ->
-    route = $(this).attr 'route'
-    if path.match(route) && route
-      $(this).addClass 'active'
-    else
-      $(this).removeClass 'active'
+window.fixDisplay = () ->
+  document.getElementById('player-body').style.webkitTransform = 'scale(1)';
 
 app.config(['$routeProvider', ($routeProvider) ->
   $routeProvider.when '/login', {templateUrl: '/partial/login', controller: 'LoginCtrl' }
   $routeProvider.when '/player', {templateUrl: '/partial/player', controller: 'PlayerCtrl' }
-  $routeProvider.otherwise {redirectTo: '/login'}
+  $routeProvider.when '/home', {templateUrl: '/partial/home', controller: 'HomeCtrl' }
+  $routeProvider.otherwise {redirectTo: '/home'}
 ]).
 config(['RestangularProvider', '$httpProvider', (RestangularProvider, $httpProvider) ->
   RestangularProvider.setBaseUrl('/api/v1')
@@ -22,10 +18,9 @@ run(['$rootScope', '$location', 'AuthFactory'
 
     $rootScope.$on '$routeChangeStart',
       (event, next, current) ->
-        if ($location.path() != '/login' && !AuthFactory.isLoggedIn())
+        if ($location.path() == '/player' && !AuthFactory.isLoggedIn())
           AuthFactory.friendlyRedirect = $location.path()
           $location.path('/login');
-        window.updateActive $location.path()
         $rootScope.flash = undefined
 ]).
 run(['Restangular', (Restangular) ->

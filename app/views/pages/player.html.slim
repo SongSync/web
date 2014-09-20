@@ -1,2 +1,14 @@
 div ng-app='songSync'
+  nav.navbar-nav.navbar-default
+    .navbar-header
+      button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"
+        span class="sr-only" Toggle navigation
+        span class="icon-bar"
+        span class="icon-bar"
+        span class="icon-bar"
+    a.navbar-brand href="#/home" SongSync
+    .collapse.navbar-collapse#nav-collapse-1
+      ul.nav.navbar-nav.pull-right ng-controller='NavCtrl'
+        li
+          a href='javascript:void(0)' ng-click='signOut()' ng-show='current_user' Sign Out
   ng-view

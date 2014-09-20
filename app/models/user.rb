@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :omniauthable, :omniauth_providers => [ :spotify ]
 
   before_create { self.api_key = SecureRandom.urlsafe_base64(32) }
+  after_create { playlists.create(name: 'Your First Playlist') }
 
   has_many :playlists
   has_many :songs

@@ -1,6 +1,6 @@
 app = angular.module('songSync.services', ['restangular'])
 
-app.factory 'ApiFactory', ['Restangular'], (Restangular) ->
+app.factory 'ApiFactory', ['Restangular', (Restangular) ->
   {
     getPlaylists: () ->
       Restangular.all('playlists').getList()
@@ -17,7 +17,7 @@ app.factory 'ApiFactory', ['Restangular'], (Restangular) ->
       }
       Restangular.all('songs').customPOST({song: song})
   }
-
+]
 app.factory 'AuthFactory', ['Restangular', '$window', '$q', (Restangular, $window, $q) ->
   {
     login: (credentials) ->
