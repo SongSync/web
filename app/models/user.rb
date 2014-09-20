@@ -3,5 +3,12 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-  
+
+  has_many :playlists
+  def serializable_hash(options={})
+    super({
+      only: [:id, :name],
+      include: [:playlists]
+    }.merge(options))
+  end
 end
