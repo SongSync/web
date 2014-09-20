@@ -12,10 +12,10 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require ui-bootstrap
 //= require underscore.min
 //= require angular
 //= require angular-route
+//= require ui-bootstrap
 //= require restangular
 //= require angapp
 //= require controllers
