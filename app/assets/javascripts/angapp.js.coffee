@@ -1,0 +1,1 @@
+myApp = angular.module('songSync', ['songSync.controllers', 'songSync.services', 'restangular', 'ui-bootstrap'])
