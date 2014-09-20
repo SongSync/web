@@ -12,4 +12,10 @@ Rails.application.routes.draw do
 
   devise_for :users
   root 'pages#home'
+  resources :pages, only: [] do
+    collection do
+      get :home
+      get :player
+    end
+  end
 end
