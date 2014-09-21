@@ -73,7 +73,7 @@ app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', '$sce', '$ro
         $rootScope.$broadcast 'audio.set', $sce.trustAsResourceUrl(song.file_url), song, _.indexOf(playlist.songs, song)+1, playlist.songs.length, $scope.currentTime
         window.setTimeout () ->
           $rootScope.$broadcast 'audio.play'
-        , 2000
+        , 500
 
   $scope.selectPlaylist = (playlist) ->
     if !playlist
@@ -167,9 +167,8 @@ app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', '$sce', '$ro
   $scope.selectedSongs = () ->
     _.select($scope.current_playlist.songs, (song) -> song.selected)
   $scope.finishEditing = (song) ->
-    if song.save
-      return song.save()
-    song = Restangular.restangularizeElement(undefined, song, 'songs', {})
+    if !song.save
+      song = Restangular.restangularizeElement(undefined, song, 'songs', {})
     song.save()
     song.editing = false
 ]
