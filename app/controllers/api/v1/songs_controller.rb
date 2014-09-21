@@ -7,7 +7,7 @@ class Api::V1::SongsController < Api::V1::ApiController
 
   def create
     @song = @user.songs.create(song_params)
-    Playlist.find(params[:playlist_id].to_i).songs << @song if params[:playlist_id].to_i != 0
+    Playlist.find(params[:playlist_id].to_i).songs << @song if params[:playlist_id].to_i > 0
     render json: @song
   end
 
