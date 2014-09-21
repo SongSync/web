@@ -35,6 +35,7 @@ app.directive('audioPlayer', ($rootScope) ->
       $rootScope.$on 'audio.set', (r, file, info, currentNum, totalNum, start_time) ->
           playing = !$scope.audio.paused
           $scope.audio.src = file
+          $scope.audio.volume = 0.1
           $scope.currentTime = start_time
           if playing
             a =  $scope.audio.play()

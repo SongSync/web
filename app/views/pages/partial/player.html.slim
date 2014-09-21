@@ -39,32 +39,42 @@
         h3
           span ng-show='current_playlist' &nbsp;{{current_playlist.name}}
           span ng-show='!current_playlist' Select a Playlist...
-          .btn-group.pull-right
-            button.btn.btn-lg.btn-primary.dropdown-toggle data-toggle='dropdown'
-              span.fui-plus
-              |  Upload
-              span.caret
-            ul.dropdown-menu
-              li: a href='javascript:void(0)' ng-click='localUpload(playlist)' From your computer
-              li: a href='javascript:void(0)' ng-click='youtubeImport(playlist)' From YouTube
+          .pull-right
+            .btn-group ng-show='selectedSongs().length > 1'
+              button.btn.btn-lg.btn-info.dropdown-toggle data-toggle='dropdown'
+                | Bulk Options
+                span.caret
+              ul.dropdown-menu
+                li: a href='javascript:void(0)' ng-click='openAddToPlaylistModal(selectedSongs(), playlists)' Add to Playlist
+                li: a href='javascript:void(0)' ng-click='remove(selectedSongs())' Remove
+            .btn-group
+              button.btn.btn-lg.btn-primary.dropdown-toggle data-toggle='dropdown'
+                span.fui-plus
+                |  Upload
+                span.caret
+              ul.dropdown-menu
+                li: a href='javascript:void(0)' ng-click='localUpload(playlist)' From your computer
+                li: a href='javascript:void(0)' ng-click='youtubeImport(playlist)' From YouTube
         hr
-        .row ng-repeat='song in current_playlist.songs' style='padding: 2px;' ng-class="{'selected': song.selected}"
-          .col-xs-10 ng-click='clickSong(song)'
-            | {{$index+1}}.  
+        .row.hoverable ng-repeat='song in current_playlist.songs' style='padding: 2px;' ng-class="{'selected': song.selected}"
+          .col-xs-1
+            input type='checkbox' ng-model='song.selected' style='margin-top: 12px;'
+          .col-xs-1
             span.fui-play ng-click='playSong($index)'
-            |   {{song.name}}
+          .col-xs-8 ng-click='clickSong(song)'
+            | {{song.name}}
           .col-xs-2
             .btn-group
-              button.btn.btn-primary.dropdown-toggle data-toggle='dropdown'
+              button.btn.btn-primary.dropdown-toggle data-toggle='dropdown' ng-click='softClickSong(song)'
                 | Options
                 span.caret
               ul.dropdown-menu
                 li
                   a href='javascript:void(0)' ng-click='playSong($index)' Play
                 li
-                  a href='javascript:void(0)' ng-click='openAddToPlaylistModal(song, playlists)' Add to Playlist
+                  a href='javascript:void(0)' ng-click='openAddToPlaylistModal([song], playlists)' Add to Playlist
                 li
                   a href='javascript:void(0)' ng-click='rename(song)' Rename
                 li.divider
                 li
-                  a href='javascript:void(0)' ng-click='remove(song)' Remove
+                  a href='javascript:void(0)' ng-click='remove([song])' Remove

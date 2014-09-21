@@ -68,6 +68,9 @@ app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', '$sce', '$ro
       $scope.current_playlist = $scope.all_songs
     else
       $scope.current_playlist = playlist
+      ApiFactory.getPlaylist(playlist.id).then (updated_playlist) ->
+        playlist = updated_playlist
+        $scope.current_playlist = updated_playlist
   $scope.removePlaylist = (playlist) ->
     ApiFactory.deletePlaylist(playlist.id).then (val) ->
         if $scope.current_playlist.id == playlist.id
@@ -89,6 +92,12 @@ app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', '$sce', '$ro
       $scope.last_clicked_song = song
       song.selected = true
 
+  $scope.softClickSong = (song) ->
+    if $scope.last_clicked_song
+      $scope.last_clicked_song.selected = false
+    $scope.last_clicked_song = song
+    song.selected = true
+
   $scope.playSong = (index) ->
     $scope.current_song = $scope.current_playlist.songs[index]
     $scope.last_clicked_song.selected = false
@@ -100,16 +109,26 @@ app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', '$sce', '$ro
       $rootScope.$broadcast('audio.play')
     , 0
 
-  $scope.openAddToPlaylistModal = () ->
+  $scope.openAddToPlaylistModal = (songs, playlists) ->
+    modalInstance = $modal.open({
+      templateUrl: '/partial/modal/add_to_playlist'
+      controller: 'AddToPlaylistCtrl'
+      resolve: {
+        songs: ()-> songs
+        playlists: ()-> playlists
+      }
+    })
 
   $scope.rename = () ->
-  $scope.remove = (song) ->
-    song_id = song.id
-    if $scope.current_playlist.id == 'all'
-      ApiFactory.deleteSong(song_id)
-      _.each $scope.playlists, (playlist) ->
-        playlist.songs = _.reject playlist.songs, (song) -> song.id == song_id
-      $scope.current_playlist.songs = _.without($scope.current_playlist.songs, song)
+  $scope.remove = (songs) ->
+    if $scope.current_playlist.id == '-1'
+      _.each songs, (song) ->
+        ApiFactory.deleteSong(song.id)
+        $scope.current_playlist.songs = _.without($scope.current_playlist.songs, song)
+    else
+      ApiFactory.removeFromPlaylist(_.pluck(songs, 'id'), $scope.current_playlist.id).then (playlist) ->
+        $scope.current_playlist = playlist
+      $scope.current_playlist.songs = _.reject($scope.current_playlist.songs, (song)-> _.has(_.pluck(songs, 'id'), song.id))
 
   $scope.localUpload = (playlist) ->
     modalInstance = $modal.open({
@@ -121,4 +140,6 @@ app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', '$sce', '$ro
     })
     modalInstance.result.then (result) ->
       console.log result
+  $scope.selectedSongs = () ->
+    _.select($scope.current_playlist.songs, (song) -> song.selected)
 ]

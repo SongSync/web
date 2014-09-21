@@ -4,6 +4,7 @@ $clouds: #ECF0F1;
 $wet-asphalt: #34495E;
 $midnight-blue: #2C3E50;
 $asbestos: #7F8C8D;
+$silver: #BDC3C7;
 
 body {
   margin-top: 53px !important;
@@ -24,6 +25,12 @@ body {
   height: 100%;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+
+.hoverable {
+  &:hover {
+    background-color: $silver;
+  }
 }
 
 #home-page {
@@ -133,7 +140,7 @@ div.oauth-badges {
   background-color: $asbestos;
 }
 
-form {
+form#login-form {
 	display: block;
 	padding-top: 270px;
 	/*background-color: red;*/

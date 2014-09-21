@@ -21,6 +21,19 @@ class Api::V1::PlaylistsController < Api::V1::ApiController
     render json: @playlist.destroy
   end
 
+  def add
+    @playlist.song_ids += params[:song_ids]
+    @playlist.song_ids.uniq!
+    @playlist.save
+    render json: @playlist
+  end
+
+  def remove
+    @playlist.song_ids -= params[:song_ids]
+    @playlist.save
+    render json: @playlist
+  end
+
 private
   def playlist_params
     params.require(:playlist).permit(:name)

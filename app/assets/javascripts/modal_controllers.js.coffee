@@ -21,3 +21,14 @@ app.controller 'localUploadCtrl', ['$scope', 'ApiFactory', '$upload', 'AuthFacto
       )
     )
 ]
+
+app.controller 'AddToPlaylistCtrl',['$scope', 'AuthFactory', 'ApiFactory', 'songs', 'playlists', '$modalInstance', ($scope, AuthFactory, ApiFactory, songs, playlists, $modalInstance)->
+  $scope.songs = songs
+  $scope.playlists = playlists
+  $scope.selected = { playlist: playlists[0] }
+  $scope.cancel = () -> $modalInstance.dismiss()
+  $scope.save = () ->
+    ApiFactory.addToPlaylist(_.pluck(songs, 'id'), $scope.selected.playlist.id).then (playlist) ->
+      $scope.selected.playlist = playlist
+      $modalInstance.close()
+]
