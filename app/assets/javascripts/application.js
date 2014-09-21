@@ -13,8 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require underscore.min
+//= require angular-file-upload-shim
 //= require angular
 //= require angular-route
+//= require angular-file-upload
 //= require ui-bootstrap
 //= require bootstrap-sprockets
 //= require flat-ui
@@ -23,3 +25,9 @@
 //= require controllers
 //= require services
 //= require directives
+//= require modal_controllers
+window.onload = function() {
+  document.onselectstart = function() {
+    return false;
+  }
+}

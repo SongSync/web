@@ -9,7 +9,7 @@ class Song < ActiveRecord::Base
     super({
       only: [:id, :name],
       methods: [:file_url]
-    }.merge(options))
+    }.merge(options)).merge(errors: errors.full_messages)
   end
 
   def file_url

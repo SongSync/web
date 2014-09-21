@@ -1,8 +1,29 @@
 app = angular.module('songSync', ['songSync.controllers', 'songSync.directives',
-  'songSync.services', 'restangular', 'ui.bootstrap', 'ngRoute'])
+  'songSync.services', 'restangular', 'ui.bootstrap', 'ngRoute', 'angularFileUpload'])
 
 window.fixDisplay = () ->
   document.getElementById('player-body').style.webkitTransform = 'scale(1)';
+
+window.ctrlDown = false
+window.shiftDown = false
+
+document.addEventListener('keydown', (evt) ->
+  e = window.event || evt
+  key = e.which || e.keyCode
+  if key==17 || key==18 ||key==91
+    window.ctrlDown = true
+  if key == 16
+    window.shiftDown = true
+, false)
+
+document.addEventListener('keyup', (evt) ->
+  e = window.event || evt
+  key = e.which || e.keyCode
+  if key==17 || key==18 ||key==91
+    window.ctrlDown = false
+  if key == 16
+    window.shiftDown = false
+, false)
 
 app.config(['$routeProvider', ($routeProvider) ->
   $routeProvider.when '/login', {templateUrl: '/partial/login', controller: 'LoginCtrl' }

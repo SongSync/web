@@ -12,7 +12,7 @@ class User < ActiveRecord::Base
 
   def serializable_hash(options={})
     super({
-      only: [:id, :name, :api_key],
+      only: [:id, :name, :api_key, :current_song_id, :current_timestamp],
       include: [:playlists]
     }.merge(options))
   end

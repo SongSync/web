@@ -6,6 +6,6 @@ class Playlist < ActiveRecord::Base
     super({
       only: [:id, :name],
       include: [:songs]
-    }.merge(options))
+    }.merge(options)).merge(errors: errors.full_messages)
   end
 end

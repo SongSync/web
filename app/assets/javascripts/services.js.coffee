@@ -8,18 +8,34 @@ app.factory 'ApiFactory', ['Restangular', (Restangular) ->
       Restangular.one('playlists', id).get()
     deletePlaylist: (id) ->
       Restangular.one('playlists', id).customDELETE()
+    createPlaylist: (playlist) ->
+      Restangular.all('playlists').customPOST({playlist: playlist})
     getSongs: () ->
       Restangular.all('songs').getList()
     getSong: (id) ->
       Restangular.one('songs', id).get()
     uploadSong: (song) ->
       song = {
-        name: song.name,
+        name: song.name
         file: song.file.src
       }
       Restangular.all('songs').customPOST({song: song})
     deleteSong: (song_id) ->
       Restangular.one('songs', song_id).customDELETE()
+    updatePlayback: (current_song_id, current_playlist_id, current_timestamp)->
+      Restangular.all('playback').customPOST(
+        {
+          current_song_id: current_song_id
+          current_playlist_id: current_playlist_id
+          current_timestamp: current_timestamp
+        }
+      )
+    getPlayback: () ->
+      Restangular.one('playback').get()
+    addToPlaylist: (song_ids, playlist_id)->
+      Restangular.one('playlists', playlist_id).all('add').customPOST({song_ids: song_ids})
+    removeFromPlaylist: (song_ids, playlist_id) ->
+      Restangular.one('playlists', playlist_id).all('remove').customPOST({song_ids: song_ids})
   }
 ]
 app.factory 'AuthFactory', ['Restangular', '$window', '$q', (Restangular, $window, $q) ->
@@ -49,6 +65,7 @@ app.factory 'AuthFactory', ['Restangular', '$window', '$q', (Restangular, $windo
       this.current_user ||= angular.fromJson($window.sessionStorage.getItem('current_user'))
       if this.current_user
         Restangular.setDefaultRequestParams({api_key: this.current_user.api_key})
+      this.current_user
   }
 ]
 
