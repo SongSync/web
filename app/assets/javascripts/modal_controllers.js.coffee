@@ -5,6 +5,7 @@ app.controller 'localUploadCtrl', ['$scope', 'ApiFactory', '$upload', 'AuthFacto
   $scope.songs = []
   $scope.counter = 0
   $scope.onFileSelect = ($files) ->
+    $scope.progress = 0
     _.each($files, (file, index) ->
       $scope.upload = $upload.upload({
         url: '/api/v1/songs'

@@ -1,7 +1,7 @@
 class Song < ActiveRecord::Base
   belongs_to :user
   has_attached_file :file
-  validates_attachment_content_type :file, :content_type => /\Amedia\/.*\Z/
+  validates_attachment_content_type :file, :content_type => /(audio|video|media)\/.*/
 
   default_scope -> { order('id ASC') }
 
