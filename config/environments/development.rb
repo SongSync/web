@@ -37,7 +37,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost:3000' }
   config.paperclip_defaults = {
     storage: :s3,
-    s3_credentials: 'config/s3.yml',
+    s3_credentials: "#{Rails.root}/config/s3.yml",
     bucket: 'songsync'
   }
 end
