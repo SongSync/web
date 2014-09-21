@@ -3,6 +3,8 @@ class Song < ActiveRecord::Base
   has_attached_file :file
   validates_attachment_content_type :file, :content_type => /.*/
 
+  default_scope -> { order('id ASC') }
+
   has_and_belongs_to_many :playlists
 
   def serializable_hash(options={})

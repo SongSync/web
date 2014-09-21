@@ -13,6 +13,10 @@ class Api::V1::SongsController < Api::V1::ApiController
     render json: Song.find(params[:id])
   end
 
+  def update
+    render json: @song.update_attributes(song_params)
+  end
+
   def destroy
     render json: @song.destroy
   end

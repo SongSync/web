@@ -58,10 +58,16 @@
                 li: a href='javascript:void(0)' ng-click='youtubeImport(playlist)' From YouTube
         hr
         .row.hoverable ng-click='clickSong(song)' ng-repeat='song in current_playlist.songs' style='padding: 2px;' ng-class="{'selected': song.selected}"
-          .col-xs-10
+          .col-xs-9
             span.fui-play ng-click='playSong($index)'
-            | {{song.name}}
-          .col-xs-2
+            span ng-show='!song.editing' {{song.name}}
+            |  
+            form ng-submit='finishEditing(song)' ng-show='song.editing' style='display: inline; width: 50%;'
+              input.form-control ng-model='song.name' style='width: 70% !important; display: inline;'
+          .col-xs-3
+            span ng-show='song.editing'
+              button.btn.btn-info ng-click='finishEditing(song)' Save
+              |  
             .btn-group
               button.btn.btn-primary.dropdown-toggle data-toggle='dropdown' ng-click='song.dontgo = true ; softClickSong(song)'
                 | Options
@@ -72,7 +78,7 @@
                 li
                   a href='javascript:void(0)' ng-click='openAddToPlaylistModal([song], playlists)' Add to Playlist
                 li
-                  a href='javascript:void(0)' ng-click='rename(song)' Rename
+                  a href='javascript:void(0)' ng-click='song.editing = true' Rename
                 li.divider
                 li
                   a href='javascript:void(0)' ng-click='remove([song])' Remove

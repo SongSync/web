@@ -22,7 +22,7 @@ app.controller 'NavCtrl',['$scope', 'AuthFactory', '$location', ($scope, AuthFac
 
 ]
 
-app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', '$sce', '$rootScope', '$modal', '$q', ($scope, AuthFactory, ApiFactory, $sce, $rootScope, $modal, $q)->
+app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', '$sce', '$rootScope', '$modal', '$q', 'Restangular', ($scope, AuthFactory, ApiFactory, $sce, $rootScope, $modal, $q, Restangular)->
   AuthFactory.currentUser()
   $scope.all_songs = {name: 'All Songs', id: '-1'}
   $scope.playing = false
@@ -166,4 +166,10 @@ app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', '$sce', '$ro
       console.log result
   $scope.selectedSongs = () ->
     _.select($scope.current_playlist.songs, (song) -> song.selected)
+  $scope.finishEditing = (song) ->
+    if song.save
+      return song.save()
+    song = Restangular.restangularizeElement(undefined, song, 'songs', {})
+    song.save()
+    song.editing = false
 ]
