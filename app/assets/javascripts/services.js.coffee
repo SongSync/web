@@ -16,7 +16,7 @@ app.factory 'ApiFactory', ['Restangular', (Restangular) ->
       Restangular.one('songs', id).get()
     uploadSong: (song) ->
       song = {
-        name: song.name,
+        name: song.name
         file: song.file.src
       }
       Restangular.all('songs').customPOST({song: song})

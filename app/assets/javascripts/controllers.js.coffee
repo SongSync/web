@@ -32,6 +32,18 @@ app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', '$sce', '$ro
     $scope.currentTime = data.currentTime
   $scope.$on 'audio.play', () -> $scope.playing = true
   $scope.$on 'audio.pause', () -> $scope.playing = false
+  $scope.$on 'audio.next', () ->
+    index = _.indexOf($scope.current_playlist.songs, $scope.current_song)
+    $scope.current_song = $scope.current_playlist.songs[index + 1]
+    if !$scope.current_song
+      $scope.current_song = $scope.current_playlist.songs[0]
+    playlist = $scope.current_playlist
+    song = $scope.current_song
+    if $scope.selectedSongs().length == 1
+      $scope.last_clicked_song.selected = false
+      song.selected = true
+    $scope.last_clicked_song = song
+    $rootScope.$broadcast 'audio.set', $sce.trustAsResourceUrl(song.file_url), song, _.indexOf(playlist.songs, song)+1, playlist.songs.length
   window.setInterval( () ->
     ApiFactory.updatePlayback($scope.current_song.id, $scope.current_playlist.id, $scope.currentTime) if $scope.playing
   , 5000)
@@ -85,12 +97,24 @@ app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', '$sce', '$ro
         alert val.errors.join(', ')
 
   $scope.clickSong = (song) ->
-    if $scope.last_clicked_song.id == song.id
-      $scope.playSong(_.indexOf($scope.current_playlist.songs, song))
-    else
-      $scope.last_clicked_song.selected = false
+    if song.dontgo == true
+      song.dontgo = false
+    else if window.ctrlDown
+      song.selected = !song.selected
       $scope.last_clicked_song = song
-      song.selected = true
+    else if window.shiftDown
+      min = Math.min($scope.last_clicked_song.id, song.id)
+      max = Math.max($scope.last_clicked_song.id, song.id)
+      _.each($scope.current_playlist.songs, (song) ->
+        song.selected = song.id <= max && song.id >= min
+      )
+    else
+      if $scope.last_clicked_song.id == song.id
+        $scope.playSong(_.indexOf($scope.current_playlist.songs, song))
+      else
+        _.each($scope.current_playlist.songs, (song) -> song.selected = false)
+        $scope.last_clicked_song = song
+        song.selected = true
 
   $scope.softClickSong = (song) ->
     if $scope.last_clicked_song

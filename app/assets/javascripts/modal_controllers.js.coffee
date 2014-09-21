@@ -1,6 +1,7 @@
 app = angular.module('songSync.controllers')
 
-app.controller 'localUploadCtrl', ['$scope', 'ApiFactory', '$upload', 'AuthFactory', 'playlist', ($scope, ApiFactory, $upload, AuthFactory, playlist)->
+app.controller 'localUploadCtrl', ['$scope', 'ApiFactory', '$upload', 'AuthFactory', 'playlist', '$modalInstance', ($scope, ApiFactory, $upload, AuthFactory, playlist, $modalInstance)->
+  $scope.messages = []
   $scope.onFileSelect = ($files) ->
     _.each($files, (file) ->
       $scope.upload = $upload.upload({
@@ -12,14 +13,20 @@ app.controller 'localUploadCtrl', ['$scope', 'ApiFactory', '$upload', 'AuthFacto
         }
         file: file
       }).progress( (e) ->
-        console.log('percent: ' + parseInt(100.0 * e.loaded / e.total))
+        $scope.progress = 100.0 * e.loaded/e.total
       ).success( (data) ->
         console.log("Success", data)
-        playlist.songs.push(data)
+        if data.errors.length == 0
+          $scope.messages.push("Successfully added: " + data.name)
+          if playlist
+            playlist.songs.push(data)
+        else
+          $scope.messages.push(data.errors.join(', '))
       ).error( (data) ->
         console.log("Error", data)
       )
     )
+  $scope.cancel = () -> $modalInstance.dismiss()
 ]
 
 app.controller 'AddToPlaylistCtrl',['$scope', 'AuthFactory', 'ApiFactory', 'songs', 'playlists', '$modalInstance', ($scope, AuthFactory, ApiFactory, songs, playlists, $modalInstance)->

@@ -47,6 +47,7 @@
               ul.dropdown-menu
                 li: a href='javascript:void(0)' ng-click='openAddToPlaylistModal(selectedSongs(), playlists)' Add to Playlist
                 li: a href='javascript:void(0)' ng-click='remove(selectedSongs())' Remove
+            |  
             .btn-group
               button.btn.btn-lg.btn-primary.dropdown-toggle data-toggle='dropdown'
                 span.fui-plus
@@ -56,16 +57,13 @@
                 li: a href='javascript:void(0)' ng-click='localUpload(playlist)' From your computer
                 li: a href='javascript:void(0)' ng-click='youtubeImport(playlist)' From YouTube
         hr
-        .row.hoverable ng-repeat='song in current_playlist.songs' style='padding: 2px;' ng-class="{'selected': song.selected}"
-          .col-xs-1
-            input type='checkbox' ng-model='song.selected' style='margin-top: 12px;'
-          .col-xs-1
+        .row.hoverable ng-click='clickSong(song)' ng-repeat='song in current_playlist.songs' style='padding: 2px;' ng-class="{'selected': song.selected}"
+          .col-xs-10
             span.fui-play ng-click='playSong($index)'
-          .col-xs-8 ng-click='clickSong(song)'
             | {{song.name}}
           .col-xs-2
             .btn-group
-              button.btn.btn-primary.dropdown-toggle data-toggle='dropdown' ng-click='softClickSong(song)'
+              button.btn.btn-primary.dropdown-toggle data-toggle='dropdown' ng-click='song.dontgo = true ; softClickSong(song)'
                 | Options
                 span.caret
               ul.dropdown-menu

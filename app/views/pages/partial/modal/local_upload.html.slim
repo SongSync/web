@@ -3,7 +3,9 @@
 .modal-body
   h4 Select Files
   input type='file' ng-file-select='onFileSelect($files)' multiple='true'
-   .drop-file-box ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="" Drop files here...
+  .progress ng-show='progress'
+    .progress-bar.progress-bar-striped.active role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100" style="width: {{progress}}%;"
+  .drop-file-box ng-file-drop="onFileSelect($files)" ng-file-drag-over-class="" Drop files here...
 .modal-footer
   .pull-right.col-lg-12
-    button.btn.btn-danger ng-click='close()' Cancel
+    button.btn.btn-danger ng-click='cancel()' Cancel
