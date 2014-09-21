@@ -6,6 +6,16 @@ $midnight-blue: #2C3E50;
 $asbestos: #7F8C8D;
 $silver: #BDC3C7;
 
+.well {
+  border-radius: 30px !important;
+  .control-label {
+    color: $midnight-blue !important;
+  }
+  input {
+    margin-top: 10px;
+  }
+}
+
 body {
   margin-top: 53px !important;
   height: 100%;

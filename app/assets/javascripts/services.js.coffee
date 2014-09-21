@@ -42,7 +42,7 @@ app.factory 'AuthFactory', ['Restangular', '$window', '$q', (Restangular, $windo
   {
     login: (credentials) ->
       deferred = $q.defer()
-      response = Restangular.all('users/sign_in').customPOST({user_login: credentials}).then (val) ->
+      response = Restangular.all('users/sign_in.json').customPOST({user_login: credentials}).then (val) ->
         if val.success
           this._isLoggedIn = true
           this.current_user = val.current_user
@@ -55,7 +55,7 @@ app.factory 'AuthFactory', ['Restangular', '$window', '$q', (Restangular, $windo
       return deferred.promise
     logout: () ->
       authf = this
-      Restangular.all('users/sign_out').customDELETE('', {user_login: {}}).then (val) ->
+      Restangular.all('users/sign_out.json').customDELETE('', {user_login: {}}).then (val) ->
         authf.current_user = undefined
         $window.sessionStorage.removeItem 'current_user'
         authf._isLoggedIn = false
