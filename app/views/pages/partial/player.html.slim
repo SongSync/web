@@ -54,8 +54,8 @@
                 |  Upload
                 span.caret
               ul.dropdown-menu
-                li: a href='javascript:void(0)' ng-click='localUpload(playlist)' From your computer
-                li: a href='javascript:void(0)' ng-click='youtubeImport(playlist)' From YouTube
+                li: a href='javascript:void(0)' ng-click='localUpload(current_playlist)' From your computer
+                li: a href='javascript:void(0)' ng-click='youtubeImport(current_playlist)' From YouTube
         hr
         .row.hoverable ng-click='clickSong(song)' ng-repeat='song in current_playlist.songs' style='padding: 2px;' ng-class="{'selected': song.selected}"
           .col-xs-9

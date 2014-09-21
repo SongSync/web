@@ -2,29 +2,35 @@ app = angular.module('songSync.controllers')
 
 app.controller 'localUploadCtrl', ['$scope', 'ApiFactory', '$upload', 'AuthFactory', 'playlist', '$modalInstance', ($scope, ApiFactory, $upload, AuthFactory, playlist, $modalInstance)->
   $scope.messages = []
+  $scope.songs = []
+  $scope.counter = 0
   $scope.onFileSelect = ($files) ->
-    _.each($files, (file) ->
+    _.each($files, (file, index) ->
       $scope.upload = $upload.upload({
         url: '/api/v1/songs'
         method: 'POST'
         data: {
-          api_key: AuthFactory.currentUser().api_key,
+          api_key: AuthFactory.currentUser().api_key
           song: { name: file.name }
+          playlist_id: (playlist||{}).id
         }
         file: file
-      }).progress( (e) ->
-        $scope.progress = 100.0 * e.loaded/e.total
-      ).success( (data) ->
+      }).success( (data) ->
         console.log("Success", data)
+        $scope.progress = 100.0 * ($scope.counter+1)/$files.length
         if data.errors.length == 0
           $scope.messages.push("Successfully added: " + data.name)
           if playlist
-            playlist.songs.push(data)
+            $scope.songs.push(data)
         else
           $scope.messages.push(data.errors.join(', '))
       ).error( (data) ->
         console.log("Error", data)
-      )
+      ).then () ->
+        $scope.counter += 1
+        if $scope.counter == $files.length
+          alert 'File upload complete!'
+          $modalInstance.close($scope.songs)
     )
   $scope.cancel = () -> $modalInstance.dismiss()
 ]

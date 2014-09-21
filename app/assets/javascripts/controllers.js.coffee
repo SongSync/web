@@ -162,8 +162,8 @@ app.controller 'PlayerCtrl',['$scope', 'AuthFactory', 'ApiFactory', '$sce', '$ro
         playlist: () -> playlist
       }
     })
-    modalInstance.result.then (result) ->
-      console.log result
+    modalInstance.result.then (songs) ->
+      _.each(songs, (song) -> playlist.songs.push(song))
   $scope.selectedSongs = () ->
     _.select($scope.current_playlist.songs, (song) -> song.selected)
   $scope.finishEditing = (song) ->
