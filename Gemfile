@@ -12,6 +12,9 @@ gem 'slim-rails'
 gem 'devise'
 gem 'cancancan'
 
+gem 'capistrano'
+gem 'capistrano-ext'
+
 gem 'paperclip'
 gem 'aws-sdk'
 
