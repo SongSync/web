@@ -63,7 +63,7 @@
             span ng-show='!song.editing' {{song.name}}
             |  
             form ng-submit='finishEditing(song)' ng-show='song.editing' style='display: inline; width: 50%;'
-              input.form-control ng-model='song.name' style='width: 70% !important; display: inline;'
+              input.form-control ng-model='song.name' style='width: 70% !important; display: inline;' ng-click='song.dontgo = true'
           .col-xs-3
             span ng-show='song.editing'
               button.btn.btn-info ng-click='finishEditing(song)' Save
@@ -76,9 +76,9 @@
                 li
                   a href='javascript:void(0)' ng-click='playSong($index)' Play
                 li
-                  a href='javascript:void(0)' ng-click='openAddToPlaylistModal([song], playlists)' Add to Playlist
+                  a href='javascript:void(0)' ng-click='song.dontgo=true;openAddToPlaylistModal([song], playlists)' Add to Playlist
                 li
-                  a href='javascript:void(0)' ng-click='song.editing = true' Rename
+                  a href='javascript:void(0)' ng-click='song.dontgo=true;song.editing = true' Rename
                 li.divider
                 li
                   a href='javascript:void(0)' ng-click='remove([song])' Remove
