@@ -31,7 +31,7 @@ private
       pars = pars.permit(:name, :file)
     end
 
-    pars[:file] = params[:file]
+    pars[:file] = params[:file] if params[:file]
     return pars
   end
 end
